@@ -6,7 +6,7 @@
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
-
+import sys
 from PySide import QtCore, QtGui
 
 class Ui_MainWindow(object):
@@ -93,3 +93,14 @@ class Ui_MainWindow(object):
         self.btn_editar.setText(QtGui.QApplication.translate("MainWindow", "Editar", None, QtGui.QApplication.UnicodeUTF8))
         self.btn_agregar.setText(QtGui.QApplication.translate("MainWindow", "Agregar", None, QtGui.QApplication.UnicodeUTF8))
 
+class ControlMainWindow(QtGui.QMainWindow):
+    def __init__(self, parent=None):
+        super(ControlMainWindow, self).__init__(parent)
+        self.ui =  Ui_MainWindow()
+        self.ui.setupUi(self)
+
+if __name__ == "__main__":
+    app = QtGui.QApplication(sys.argv)
+    mySW = ControlMainWindow()
+    mySW.show()
+    sys.exit(app.exec_())
