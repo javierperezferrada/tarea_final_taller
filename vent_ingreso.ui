@@ -18,165 +18,83 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>10</y>
-      <width>271</width>
-      <height>381</height>
+      <y>0</y>
+      <width>361</width>
+      <height>271</height>
      </rect>
     </property>
     <property name="layoutDirection">
      <enum>Qt::LeftToRight</enum>
     </property>
-    <widget class="QLineEdit" name="le_id">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>20</y>
-       <width>113</width>
-       <height>27</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>30</y>
-       <width>91</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Id Producto</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_2">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>70</y>
-       <width>66</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Codigo</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_3">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>110</y>
-       <width>66</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Nombre</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_4">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>150</y>
-       <width>66</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Descripción</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_5">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>190</y>
-       <width>66</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Marca</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_6">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>230</y>
-       <width>66</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Color</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="le_">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>60</y>
-       <width>113</width>
-       <height>27</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="lineEdit_3">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>100</y>
-       <width>113</width>
-       <height>27</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="lineEdit_4">
-     <property name="geometry">
-      <rect>
-       <x>110</x>
-       <y>140</y>
-       <width>113</width>
-       <height>27</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="lineEdit_5">
-     <property name="geometry">
-      <rect>
-       <x>110</x>
-       <y>180</y>
-       <width>113</width>
-       <height>27</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="lineEdit_6">
-     <property name="geometry">
-      <rect>
-       <x>110</x>
-       <y>220</y>
-       <width>113</width>
-       <height>27</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="btn_ingresar">
-     <property name="geometry">
-      <rect>
-       <x>80</x>
-       <y>290</y>
-       <width>98</width>
-       <height>27</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Ingresar</string>
-     </property>
-    </widget>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0" colspan="3">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Id Producto</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Codigo</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3">
+      <widget class="QLineEdit" name="le_id"/>
+     </item>
+     <item row="1" column="3">
+      <widget class="QLineEdit" name="le_codigo"/>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Nombre</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="2" colspan="2">
+      <widget class="QLineEdit" name="le_marca"/>
+     </item>
+     <item row="2" column="3">
+      <widget class="QLineEdit" name="le_nombre"/>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Descripción</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>Marca</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>Color</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="2" colspan="2">
+      <widget class="QLineEdit" name="le_color"/>
+     </item>
+     <item row="6" column="0" colspan="4">
+      <widget class="QPushButton" name="btn_ingresar">
+       <property name="text">
+        <string>Ingresar</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="3">
+      <widget class="QLineEdit" name="le_decsripcion"/>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
