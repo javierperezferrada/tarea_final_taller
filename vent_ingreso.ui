@@ -34,55 +34,58 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="2">
-      <widget class="QLineEdit" name="le_codigo"/>
-     </item>
-     <item row="1" column="0">
+     <item row="2" column="0">
       <widget class="QLabel" name="label_3">
        <property name="text">
         <string>Nombre</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="2">
-      <widget class="QLineEdit" name="le_nombre"/>
-     </item>
-     <item row="2" column="0">
+     <item row="3" column="0">
       <widget class="QLabel" name="label_4">
        <property name="text">
         <string>Descripción</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="0">
+     <item row="4" column="0">
       <widget class="QLabel" name="label_5">
        <property name="text">
         <string>Marca</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="0">
+     <item row="5" column="0">
       <widget class="QLabel" name="label_6">
        <property name="text">
         <string>Color</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="1" colspan="2">
-      <widget class="QLineEdit" name="le_color"/>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="le_codigo"/>
      </item>
-     <item row="5" column="0" colspan="3">
-      <widget class="QPushButton" name="btn_ingresar">
-       <property name="text">
-        <string>Ingresar</string>
-       </property>
-      </widget>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="le_nombre"/>
      </item>
-     <item row="2" column="2">
+     <item row="3" column="1">
       <widget class="QLineEdit" name="le_descripcion"/>
      </item>
-     <item row="3" column="1" colspan="2">
+     <item row="4" column="1">
       <widget class="QLineEdit" name="le_marca"/>
+     </item>
+     <item row="5" column="1">
+      <widget class="QLineEdit" name="le_color"/>
+     </item>
+     <item row="6" column="1">
+      <widget class="QPushButton" name="btn_ingresar">
+       <property name="focusPolicy">
+        <enum>Qt::TabFocus</enum>
+       </property>
+       <property name="text">
+        <string>INGRESAR</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
