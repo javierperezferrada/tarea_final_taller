@@ -37,7 +37,7 @@ def last_id(conn):
     return result.fetchone()
 
 
-class Productos(object):
+class Producto(object):
     """
     Clase que representa a la tabla productos
     Una instancia de esta clase representa a una fila.
@@ -194,13 +194,13 @@ class Productos(object):
 
             for row in data:
                 productos.append(
-                    Productos(row[0], row[1], row[2], row[3], row[4], row[5]))
+                    Producto(row[0], row[1], row[2], row[3], row[4], row[5]))
             return productos
 
         except sqlite3.Error as e:
             print "An error occurred:", e.args[0]
             return None
-
+"""
     def alumnos(self):
         """
         Retorna la lista completa de alumnos que están tomando el cursos
@@ -222,11 +222,11 @@ class Productos(object):
 
     def inscritos(self):
         return len(self.alumnos())
+"""
 
-
-class Alumno(object):
+class Compra(object):
     """
-    Clase que representa a la tabla alumnos
+    Clase que representa a la tabla compra
     Una instancia de esta clase representa a una fila.
     La instancia (objeto) puede estar en BD o no.
     El método save de la clase inserta o actualiza el registro según
@@ -234,46 +234,46 @@ class Alumno(object):
     Los atributos de la clase deben tener correspondencia con la BD
     (Nombres y tipos de datos)
     """
-    __tablename__ = "alumnos"
-    rut = None  # Primary Key
-    nombres = ""
-    apellidos = ""
-    correo = 0
-    id_curso = None  # Foreing key a la tabla Curso
+    __tablename__ = "compra"
+    id_compra = None  # Primary Key
+    fecha = ""
+    proveedor = ""
+    numero_factura = 0
+    descripcion = ""
 
     def __init__(
             self,
-            rut=None,
-            nombres="",
-            apellidos="",
-            correo=0,
-            id_curso=None):
+            id_compra=None,
+            fecha="",
+            proveedor="",
+            numero_factura=0,
+            descripcion=None):
 
-        self.nombres = nombres
-        self.apellidos = apellidos
-        self.correo = correo
-        self.id_curso = id_curso
+        self.fecha = fecha
+        self.proveedor = proveedor
+        self.numero_factura = numero_factura
+        self.descripcion = descripcion
 
         # Si la pk tiene valor hay que traer el objeto (Fila) de la DB
-        if rut is not None:
-            self.rut = rut
+        if id_compra is not None:
+            self.id_compra = id_compra
             self.__load()
 
     def __load(self):
-        if self.rut is not None:
+        if self.id_compra is not None:
             conn = connect()
-            query = "SELECT * FROM alumnos WHERE rut = ?"
+            query = "SELECT * FROM compra WHERE id_compra = ?"
             result = conn.execute(
-                query, [self.rut])
+                query, [self.id_compra])
             row = result.fetchone()
             conn.close()
             if row is not None:
-                self.nombres = row[1]
-                self.apellidos = row[2]
-                self.correo = row[3]
-                self.id_curso = row[4]
+                self.fecha = row[1]
+                self.proveedor = row[2]
+                self.numero_factura = row[3]
+                self.descripcion = row[4]
             else:
-                self.rut = None
+                self.id_compra = None
                 print "El registro no existe"
 
     def save(self):
@@ -281,14 +281,14 @@ class Alumno(object):
         Guarda el objeto en la base de datos.
         Utiliza un insert o update según Corresponda
         """
-        if self.__find():
-            self.__update()
+        if self.id_compra is None:
+            self.id_compra = self.__insert()
         else:
-            self.rut = self.__insert()
-
+            self.update()
+"""
     def __find(self):
         """
-        Como la clase alumno no tiene una Primary Key auto incrementada
+        Como la clase compra no tiene una Primary Key auto incrementada
         es necesario verificar si el objeto ya existe o no en la BD antes
         para saver que aplicar (INSERT/UPDATE) en el método save
         """
@@ -303,45 +303,44 @@ class Alumno(object):
                 return True
         except sqlite3.Error as e:
             print "An error occurred:", e.args[0]
-
+"""
     def __insert(self):
-        query = "INSERT INTO alumnos "
+        query = "INSERT INTO compra "
         # La pk está definida como auto increment en el modelo
-        query += "(rut, nombres, apellidos, correo, id_curso) "
-        query += "VALUES (?, ?, ?, ?, ?)"
+        query += "(fecha, proveedor, numero_factura, descripcion) "
+        query += "VALUES (?, ?, ?, ?)"
         try:
             conn = connect()
-            reult = conn.execute(
+            result = conn.execute(
                 query, [
-                    self.rut,
-                    self.nombres,
-                    self.apellidos,
-                    self.correo,
-                    self.id_curso])
+                    self.fecha,
+                    self.proveedor,
+                    self.numero_factura,
+                    self.descripcion])
             conn.commit()
             rut = last_id(conn)
             conn.close()
-            return rut
+            return id_compra
         except sqlite3.Error as e:
             print "An error occurred:", e.args[0]
             return None
 
     def __update(self):
-        query = "UPDATE alumnos "
-        query += "SET nombres = ?, "
-        query += "apellidos = ?, "
-        query += "correo = ?, "
-        query += "id_curso = ? "
-        query += "WHERE rut = ?"
+        query = "UPDATE compra "
+        query += "SET fecha = ?, "
+        query += "proveedor = ?, "
+        query += "numero_factura = ?, "
+        query += "descripcion = ? "
+        query += "WHERE id_compra = ?"
         try:
             conn = connect()
             conn.execute(
                 query, [
-                    self.nombres,
-                    self.apellidos,
-                    self.correo,
-                    self.id_curso,
-                    self.rut])
+                    self.fecha,
+                    self.proveedor,
+                    self.numero_factura,
+                    self.descripcion,
+                    self.id_compra])
             conn.commit()
             conn.close()
             return True
@@ -350,11 +349,11 @@ class Alumno(object):
             return False
 
     def delete(self):
-        query = "DELETE FROM alumnos "
-        query += "WHERE rut = ?"
+        query = "DELETE FROM compra "
+        query += "WHERE id_compra = ?"
         try:
             conn = connect()
-            conn.execute(query, [self.rut])
+            conn.execute(query, [self.id_compra])
             conn.commit()
             conn.close()
             return True
@@ -366,26 +365,26 @@ class Alumno(object):
     def all(cls):
         """
         Método utlizado para obtener la colección completa de filas
-        en la tabla alumnos.
+        en la tabla compra.
         Este método al ser de clase no necesita una instancia (objeto)
         Sólo basta con invocarlo desde la clase.
         """
-        query = "SELECT * FROM alumnos"
-        alumnos = list()
+        query = "SELECT * FROM compra"
+        compras = list()
         try:
             conn = connect()
             result = conn.execute(query)
             data = result.fetchall()
 
             for row in data:
-                alumnos.append(
-                    Alumno(row[0], row[1], row[2], row[3], row[4]))
-            return alumnos
+                compras.append(
+                    Compra(row[0], row[1], row[2], row[3], row[4]))
+            return compras
 
         except sqlite3.Error as e:
             print "An error occurred:", e.args[0]
             return None
-
+"""
     def curso(self):
         """
         Retorna el curso al que está asociado un alumno
@@ -431,3 +430,4 @@ if __name__ == "__main__":
     # Traer todos los alumnos de un curso
     c = Curso(1)
     c.alumnos()
+"""
