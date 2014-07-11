@@ -6,8 +6,9 @@ intermedia entre la Vista y el modelo.
 Su finalidad es validar los datos de entrada que envía la vista y decidir
 que información enviar a ésta.
 """
-
+from PySide import QtGui
 from model import Producto, Compra
+
 
 
 def productos():
@@ -20,17 +21,27 @@ def compras():
 
 def crear_producto(codigo, nombre, descripcion, marca, color):
     """
-    Método que crea un producto. Falta validar
-    que toda la información es correcta
+    Método que crea un producto.
     """
     nuevo = Producto()
-    nuevo.codigo = codigo
-    # Aquí podrían haber validaciones para el codigo
-    nuevo.nombre = nombre
-    nuevo.descripcion = descripcion
-    nuevo.marca = marca
-    nuevo.color = color
-    nuevo.save()
+    if codigo == "" or nombre == "":  # Valida los campos obligatorios.
+        msgBox = QtGui.QMessageBox()
+        msgBox.setText("Debe ingresar los campos obligatorios.")
+        msgBox.exec_()
+        return False
+
+    else:
+        nuevo.codigo = codigo
+        nuevo.nombre = nombre
+        nuevo.descripcion = descripcion
+        nuevo.marca = marca
+        nuevo.color = color
+        nuevo.save()
+        msgBox = QtGui.QMessageBox()
+        msgBox.setText("Producto ingresado satisfactoriamente.")
+        msgBox.exec_()
+        return True
+
 
 if __name__ == "__main__":
     pass

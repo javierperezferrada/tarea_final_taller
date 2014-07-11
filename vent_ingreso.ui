@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>412</width>
+    <height>327</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,32 +19,38 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>361</width>
-      <height>271</height>
+      <width>401</width>
+      <height>281</height>
      </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>401</width>
+      <height>16777215</height>
+     </size>
     </property>
     <property name="layoutDirection">
      <enum>Qt::LeftToRight</enum>
     </property>
-    <layout class="QGridLayout" name="gridLayout">
+    <layout class="QFormLayout" name="formLayout">
      <item row="0" column="0">
       <widget class="QLabel" name="label_2">
        <property name="text">
-        <string>Codigo</string>
+        <string>Codigo     *</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="2">
+     <item row="0" column="1">
       <widget class="QLineEdit" name="le_codigo"/>
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="label_3">
        <property name="text">
-        <string>Nombre</string>
+        <string>Nombre  *</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="2">
+     <item row="1" column="1">
       <widget class="QLineEdit" name="le_nombre"/>
      </item>
      <item row="2" column="0">
@@ -54,12 +60,18 @@
        </property>
       </widget>
      </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="le_descripcion"/>
+     </item>
      <item row="3" column="0">
       <widget class="QLabel" name="label_5">
        <property name="text">
         <string>Marca</string>
        </property>
       </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLineEdit" name="le_marca"/>
      </item>
      <item row="4" column="0">
       <widget class="QLabel" name="label_6">
@@ -68,21 +80,33 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="1" colspan="2">
+     <item row="4" column="1">
       <widget class="QLineEdit" name="le_color"/>
      </item>
-     <item row="5" column="0" colspan="3">
+     <item row="5" column="1">
       <widget class="QPushButton" name="btn_ingresar">
+       <property name="focusPolicy">
+        <enum>Qt::TabFocus</enum>
+       </property>
        <property name="text">
-        <string>Ingresar</string>
+        <string>INGRESAR</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="2">
-      <widget class="QLineEdit" name="le_descripcion"/>
-     </item>
-     <item row="3" column="1" colspan="2">
-      <widget class="QLineEdit" name="le_marca"/>
+     <item row="6" column="0">
+      <widget class="QLabel" name="label">
+       <property name="font">
+        <font>
+         <pointsize>8</pointsize>
+         <weight>50</weight>
+         <italic>true</italic>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>*Campos Obligatorios</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
@@ -92,7 +116,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>412</width>
      <height>25</height>
     </rect>
    </property>

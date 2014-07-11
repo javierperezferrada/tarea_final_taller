@@ -24,8 +24,16 @@ class Ventana(QtGui.QMainWindow):
         des = self.ui.le_descripcion.text()
         mar = self.ui.le_marca.text()
         col = self.ui.le_color.text()
-        controller.crear_producto(cod, nom, des, mar, col)
+        if controller.crear_producto(cod, nom, des, mar, col):
 
+            self.limpiar()
+
+    def limpiar(self):
+        self.ui.le_codigo.setText("")
+        self.ui.le_nombre.setText("")
+        self.ui.le_descripcion.setText("")
+        self.ui.le_marca.setText("")
+        self.ui.le_color.setText("")
 
 if __name__ == '__main__':
     app = QtGui.QApplication(sys.argv)
