@@ -202,10 +202,10 @@ class Producto(object):
             return None
 """
     def alumnos(self):
-        """
-        Retorna la lista completa de alumnos que están tomando el cursos
-        Cada item retornado es del tipo clase Alumno
-        """
+
+        #Retorna la lista completa de alumnos que están tomando el cursos
+        #Cada item retornado es del tipo clase Alumno
+
         query = "SELECT * FROM alumnos WHERE id_curso = ?"
         try:
             conn = connect()
@@ -285,25 +285,7 @@ class Compra(object):
             self.id_compra = self.__insert()
         else:
             self.update()
-"""
-    def __find(self):
-        """
-        Como la clase compra no tiene una Primary Key auto incrementada
-        es necesario verificar si el objeto ya existe o no en la BD antes
-        para saver que aplicar (INSERT/UPDATE) en el método save
-        """
-        query = "SELECT * FROM alumnos WHERE rut = ?"
-        try:
-            conn = connect()
-            result = conn.execute(query, [self.rut])
-            row = result.fetchone()
-            if row is None:
-                return False
-            else:
-                return True
-        except sqlite3.Error as e:
-            print "An error occurred:", e.args[0]
-"""
+
     def __insert(self):
         query = "INSERT INTO compra "
         # La pk está definida como auto increment en el modelo
@@ -318,7 +300,7 @@ class Compra(object):
                     self.numero_factura,
                     self.descripcion])
             conn.commit()
-            rut = last_id(conn)
+            id_compra = last_id(conn)
             conn.close()
             return id_compra
         except sqlite3.Error as e:
@@ -386,9 +368,9 @@ class Compra(object):
             return None
 """
     def curso(self):
-        """
+
         Retorna el curso al que está asociado un alumno
-        """
+
         query = "SELECT * FROM cursos WHERE id_curso = ?"
         try:
             conn = connect()
@@ -402,9 +384,9 @@ class Compra(object):
 
 
 if __name__ == "__main__":
-    """
+
     Ejemplos de utilización del modelo
-    """
+
     # Obtener toda la lista de cursos
     Curso.all()
     # Obtener toda la lista alumnos
