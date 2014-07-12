@@ -108,7 +108,6 @@ class Ui_MainWindow(object):
         self.btn_eliminar.clicked.connect(self.eliminar_clicked)
         self.btn_editar.clicked.connect(self.editar_clicked)
 
-
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow",
         "Tabla con productos", None, QtGui.QApplication.UnicodeUTF8))
