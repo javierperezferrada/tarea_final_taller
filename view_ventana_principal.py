@@ -104,12 +104,8 @@ class VentanaPrincipal(QtGui.QMainWindow):
     def select(self):
         None
 
-
-
-
-if __name__ == '__main__':
-    app = QtGui.QApplication(sys.argv)
+def run():
+    #app = QtGui.QApplication(sys.argv)
     main = VentanaPrincipal()
     sys.exit(app.exec_())
-
 
