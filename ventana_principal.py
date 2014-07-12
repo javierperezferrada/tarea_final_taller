@@ -7,7 +7,6 @@
 #
 # WARNING! All changes made in this file will be lost!
 import sys
-import unicodedata
 from model import Producto
 from PySide import QtCore, QtGui
 
@@ -28,9 +27,9 @@ class Ui_MainWindow(object):
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setContentsMargins(-1, -1, 0, -1)
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.lineEdit = QtGui.QLineEdit(self.centralwidget)
-        self.lineEdit.setObjectName("lineEdit")
-        self.horizontalLayout.addWidget(self.lineEdit)
+        self.txtbuscar = QtGui.QLineEdit(self.centralwidget)
+        self.txtbuscar.setObjectName("lineEdit")
+        self.horizontalLayout.addWidget(self.txtbuscar)
         self.btn_buscar = QtGui.QPushButton(self.centralwidget)
         self.btn_buscar.setObjectName("btn_buscar")
         self.horizontalLayout.addWidget(self.btn_buscar)
@@ -105,6 +104,10 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         self.cargar_tabla(Producto.all())
+        self.btn_buscar.clicked.connect(self.buscar_clicked)
+        self.btn_eliminar.clicked.connect(self.eliminar_clicked)
+        self.btn_editar.clicked.connect(self.editar_clicked)
+
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow",
@@ -123,6 +126,51 @@ class Ui_MainWindow(object):
         self.btn_agregar.setText(QtGui.QApplication.translate("MainWindow",
         "Agregar", None, QtGui.QApplication.UnicodeUTF8))
 ###############################################################################
+
+    def eliminar_clicked(self):
+        index = self.tabla_productos.currentIndex()
+        print index.row()
+        if (index.row() != -1):
+            self.tabla_productos.removeRow(index.row())
+            ########################## IMPORTANTE #############################
+            ################# NO ELIMINA DE LA BASE DE DATOS ##################
+        else:
+            print "Aaaaaaaaaaaaaaaaaaaaaaa"
+            QtGui.QMessageBox.question(None, 'Error!!',
+            'No has seleccionado fila a eliminar')
+
+    def editar_clicked(self):
+        index = self.tabla_productos.currentIndex()
+        print index.row()
+        if (index.row() != -1):
+            None
+            ################### Falta editar en nueva ventana #################
+            ########################## IMPORTANTE #############################
+            ################# NO ELIMINA DE LA BASE DE DATOS ##################
+        else:
+            print "Aaaaaaaaaaaaaaaaaaaaaaa"
+            QtGui.QMessageBox.question(None, 'Error!!',
+            'No has seleccionado fila a editar')
+
+    def agregar_clicked(self):
+        None
+
+    def nueva_compra(self):
+        None
+
+    def ver_compras(self):
+        None
+
+    def buscar_clicked(self):
+        temptext = str(self.txtbuscar.text().strip())
+        # Para quitar los espacios
+        print temptext
+        print type(temptext)
+        if temptext == "":  # el qlineedit esta vacio
+            self.cargar_tabla(Producto.all())
+        else:  # el qlineedit contiene un string
+            self.cargar_tabla(Producto.all(temptext))
+            print "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
 
     def cargar_tabla(self, consulta):
         txtcellcod = []
