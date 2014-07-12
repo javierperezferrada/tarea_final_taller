@@ -105,7 +105,7 @@ class Producto(object):
             self.color = row[5]
         else:
             self.id_producto = None
-            print "El registro no existe"
+            #print "El registro no existe"
 
     def save(self):
         """
@@ -186,7 +186,6 @@ class Producto(object):
         Sólo basta con invocarlo desde la clase
         """
         query = "SELECT * FROM {}".format(cls.__tablename__)
-        productos = list()
         try:
             conn = connect()
             result = conn.execute(query)
