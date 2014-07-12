@@ -9,6 +9,7 @@
 import sys
 from model import Producto
 from PySide import QtCore, QtGui
+from view_vent_ingreso_producto import Ventana
 
 
 class Ui_MainWindow(object):
@@ -101,7 +102,7 @@ class Ui_MainWindow(object):
         self.tabla_productos.setColumnWidth(4, 210)
         self.tabla_productos.setColumnWidth(5, 150)
         self.tabla_productos.setColumnHidden(0, True)
-        self.tabla_productos.setHorizontalHeaderLabels(['Codigo',
+        self.tabla_productos.setHorizontalHeaderLabels(['id', 'Codigo',
         'Nombre', 'Descripcion', 'Marca', 'Color'])
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -130,12 +131,12 @@ class Ui_MainWindow(object):
 
     def eliminar_clicked(self):
         index = self.tabla_productos.currentIndex()
-        print index.row()
         if (index.row() != -1):
-            self.tabla_productos.removeRow(index.row())
-            print self.tabla_productos.currentIndex()
-            ########################## IMPORTANTE #############################
-            ################# NO ELIMINA DE LA BASE DE DATOS ##################
+            pk = int(self.tabla_productos.item(index.row(),0).text())
+            p = Producto()
+            p.id_producto = pk
+            p.delete()
+            self.cargar_tabla(Producto.all())
         else:
             QtGui.QMessageBox.question(None, 'Error!!',
             'No has seleccionado fila a eliminar')
@@ -154,7 +155,8 @@ class Ui_MainWindow(object):
             'No has seleccionado fila a editar')
 
     def agregar_clicked(self):
-        None
+        agregar = Ventana()
+
 
     def nueva_compra(self):
         None

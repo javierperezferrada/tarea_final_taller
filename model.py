@@ -105,7 +105,7 @@ class Producto(object):
             self.color = row[5]
         else:
             self.id_producto = None
-            print "El registro no existe"
+            #print "El registro no existe"
 
     def save(self):
         """
@@ -190,7 +190,6 @@ class Producto(object):
             conn = connect()
             result = conn.execute(query)
             data = result.fetchall()
-            print data
             return data
 
         except sqlite3.Error as e:
