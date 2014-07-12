@@ -6,6 +6,7 @@
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
+from model import Producto
 import sys
 from PySide import QtCore, QtGui
 
@@ -127,9 +128,17 @@ class Ui_Compra_de_productos(object):
         self.statusbar = QtGui.QStatusBar(Compra_de_productos)
         self.statusbar.setObjectName("statusbar")
         Compra_de_productos.setStatusBar(self.statusbar)
-
         self.retranslateUi(Compra_de_productos)
         QtCore.QMetaObject.connectSlotsByName(Compra_de_productos)
+        self.tabla_buscar.setColumnCount(5)
+        self.tabla_buscar.setColumnWidth(0, 80)
+        self.tabla_buscar.setColumnWidth(1, 120)
+        self.tabla_buscar.setColumnWidth(2, 220)
+        self.tabla_buscar.setColumnWidth(3, 210)
+        self.tabla_buscar.setColumnWidth(4, 150)
+        self.tabla_buscar.setHorizontalHeaderLabels(['Codigo',
+        'Nombre', 'Descripcion', 'Marca', 'Color'])
+        self.cargar_tabla(Producto.all())
 
     def retranslateUi(self, Compra_de_productos):
         Compra_de_productos.setWindowTitle(QtGui.QApplication.translate(
@@ -163,6 +172,34 @@ class Ui_Compra_de_productos(object):
             "Compra_de_productos", "Guardar compra", None,
             QtGui.QApplication.UnicodeUTF8))
 
+    def cargar_tabla(self, consulta):
+        txtcellcod = []
+        txtcellnom = []
+        txtcelldes = []
+        txtcellmar = []
+        txtcellcol = []
+        c = 0  # segundo contador para colocar daos
+        f = 0  # primer contador para recopilar numero de filas necesarias
+        for pro in consulta:
+            txtcellcod.append(QtGui.QTableWidgetItem())
+            txtcellnom.append(QtGui.QTableWidgetItem())
+            txtcelldes.append(QtGui.QTableWidgetItem())
+            txtcellmar.append(QtGui.QTableWidgetItem())
+            txtcellcol.append(QtGui.QTableWidgetItem())
+            txtcellcod[f].setText(pro[1])
+            txtcellnom[f].setText(pro[2])
+            txtcelldes[f].setText(pro[3])
+            txtcellmar[f].setText(pro[4])
+            txtcellcol[f].setText(pro[5])
+            f = f + 1
+        self.tabla_buscar.setRowCount(f)
+        for pro in consulta:
+            self.tabla_buscar.setItem(c, 0, txtcellcod[c])
+            self.tabla_buscar.setItem(c, 1, txtcellnom[c])
+            self.tabla_buscar.setItem(c, 2, txtcelldes[c])
+            self.tabla_buscar.setItem(c, 3, txtcellmar[c])
+            self.tabla_buscar.setItem(c, 4, txtcellcol[c])
+            c = c + 1
 
 class ControlMainWindow(QtGui.QMainWindow):
     def __init__(self, parent=None):
