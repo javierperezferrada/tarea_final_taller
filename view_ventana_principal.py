@@ -5,8 +5,11 @@ from PySide import QtGui, QtCore
 from ventana_principal import Ui_MainWindow
 import controller
 from model import Producto
+<<<<<<< HEAD
 import view_vent_ingreso_producto
 import view_edit_producto
+=======
+>>>>>>> ce25d940da6de7ea7b6493025e9ac6b0ef4e1cae
 
 class VentanaPrincipal(QtGui.QMainWindow):
     table_columns = (
@@ -51,6 +54,7 @@ class VentanaPrincipal(QtGui.QMainWindow):
                 index = model.index(i, j, QtCore.QModelIndex())
                 model.setData(index, field)
             #Parametros ocultos
+<<<<<<< HEAD
             model.item(i).prod = data
             model.item(i).pk = data[0]
 
@@ -110,3 +114,23 @@ if __name__ == '__main__':
     app = QtGui.QApplication(sys.argv)
     main = VentanaPrincipal()
     sys.exit(app.exec_())
+=======
+            model.item(i).mov = data
+            model.item(i).pk = data[0]
+
+    def editar():
+        None
+
+
+    def eliminar():
+        None
+
+
+    def agregar():
+        None
+
+
+    def select():
+        None
+
+>>>>>>> ce25d940da6de7ea7b6493025e9ac6b0ef4e1cae
