@@ -93,12 +93,14 @@ class Ui_MainWindow(object):
         self.statusbar = QtGui.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-        self.tabla_productos.setColumnCount(5)
-        self.tabla_productos.setColumnWidth(0, 80)
-        self.tabla_productos.setColumnWidth(1, 120)
-        self.tabla_productos.setColumnWidth(2, 220)
-        self.tabla_productos.setColumnWidth(3, 210)
-        self.tabla_productos.setColumnWidth(4, 150)
+        self.tabla_productos.setColumnCount(6)
+        self.tabla_productos.setColumnWidth(0, 0)
+        self.tabla_productos.setColumnWidth(1, 80)
+        self.tabla_productos.setColumnWidth(2, 120)
+        self.tabla_productos.setColumnWidth(3, 220)
+        self.tabla_productos.setColumnWidth(4, 210)
+        self.tabla_productos.setColumnWidth(5, 150)
+        self.tabla_productos.setColumnHidden(0, True)
         self.tabla_productos.setHorizontalHeaderLabels(['Codigo',
         'Nombre', 'Descripcion', 'Marca', 'Color'])
         self.retranslateUi(MainWindow)
@@ -166,12 +168,15 @@ class Ui_MainWindow(object):
         print temptext
         print type(temptext)
         if temptext == "":  # el qlineedit esta vacio
-            self.cargar_tabla(Producto.all())
+            self.cargar_tabla(Producto.all(temptext))
         else:  # el qlineedit contiene un string
+            self.tabla_productos.setRowCount(0)
             self.cargar_tabla(Producto.all(temptext))
             print "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
 
     def cargar_tabla(self, consulta):
+        self.tabla_productos.setRowCount(0)
+        txtcellid = []
         txtcellcod = []
         txtcellnom = []
         txtcelldes = []
@@ -180,11 +185,13 @@ class Ui_MainWindow(object):
         c = 0  # segundo contador para colocar daos
         f = 0  # primer contador para recopilar numero de filas necesarias
         for pro in consulta:
+            txtcellid.append(QtGui.QTableWidgetItem())
             txtcellcod.append(QtGui.QTableWidgetItem())
             txtcellnom.append(QtGui.QTableWidgetItem())
             txtcelldes.append(QtGui.QTableWidgetItem())
             txtcellmar.append(QtGui.QTableWidgetItem())
             txtcellcol.append(QtGui.QTableWidgetItem())
+            txtcellid[f].setText(str(pro[0]))
             txtcellcod[f].setText(pro[1])
             txtcellnom[f].setText(pro[2])
             txtcelldes[f].setText(pro[3])
@@ -193,12 +200,14 @@ class Ui_MainWindow(object):
             f = f + 1
         self.tabla_productos.setRowCount(f)
         for pro in consulta:
-            self.tabla_productos.setItem(c, 0, txtcellcod[c])
-            self.tabla_productos.setItem(c, 1, txtcellnom[c])
-            self.tabla_productos.setItem(c, 2, txtcelldes[c])
-            self.tabla_productos.setItem(c, 3, txtcellmar[c])
-            self.tabla_productos.setItem(c, 4, txtcellcol[c])
+            self.tabla_productos.setItem(c, 0, txtcellid[c])
+            self.tabla_productos.setItem(c, 1, txtcellcod[c])
+            self.tabla_productos.setItem(c, 2, txtcellnom[c])
+            self.tabla_productos.setItem(c, 3, txtcelldes[c])
+            self.tabla_productos.setItem(c, 4, txtcellmar[c])
+            self.tabla_productos.setItem(c, 5, txtcellcol[c])
             c = c + 1
+
 
 
 class ControlMainWindow(QtGui.QMainWindow):
