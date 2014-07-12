@@ -186,11 +186,11 @@ class Producto(object):
         Sólo basta con invocarlo desde la clase
         """
         query = "SELECT * FROM {}".format(cls.__tablename__)
-        productos = list()
         try:
             conn = connect()
             result = conn.execute(query)
             data = result.fetchall()
+            print data
             return data
 
         except sqlite3.Error as e:
