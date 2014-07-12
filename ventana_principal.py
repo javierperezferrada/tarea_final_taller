@@ -131,10 +131,10 @@ class Ui_MainWindow(object):
         print index.row()
         if (index.row() != -1):
             self.tabla_productos.removeRow(index.row())
+            print self.tabla_productos.currentIndex()
             ########################## IMPORTANTE #############################
             ################# NO ELIMINA DE LA BASE DE DATOS ##################
         else:
-            print "Aaaaaaaaaaaaaaaaaaaaaaa"
             QtGui.QMessageBox.question(None, 'Error!!',
             'No has seleccionado fila a eliminar')
 
@@ -177,7 +177,7 @@ class Ui_MainWindow(object):
         txtcelldes = []
         txtcellmar = []
         txtcellcol = []
-        c = 0  # segundo contador para colocar daos
+        c = 0  # segundo contador para colocar datos
         f = 0  # primer contador para recopilar numero de filas necesarias
         for pro in consulta:
             txtcellcod.append(QtGui.QTableWidgetItem())
