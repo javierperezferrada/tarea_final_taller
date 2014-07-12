@@ -7,12 +7,29 @@ import controller
 
 
 class Form(QtGui.QDialog):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None,id_p=None, cod=None, nom=None, des=None,
+            mar=None, col=None):
         QtGui.QDialog.__init__(self, parent)
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
         self.set_signals()
+        self.cargar(cod, nom, des, mar, col)
+        self.pk = id_p
         self.show()
+
+    def cargar(self, cod, nom,des, mar, col):
+        self.cod = cod
+        self.nom = nom
+        self.des = des
+        self.mar = mar
+        self.col = col
+        self.ui.le_codigo.setText(cod)
+        self.ui.le_nombre.setText(nom)
+        self.ui.le_descripcion.setText(des)
+        self.ui.le_marca.setText(mar)
+        self.ui.le_color.setText(col)
+
+
 
     def set_signals(self):
         #en esta funcion se definen todos los tratamientos de señales.
@@ -24,7 +41,8 @@ class Form(QtGui.QDialog):
         des = self.ui.le_descripcion.text()
         mar = self.ui.le_marca.text()
         col = self.ui.le_color.text()
-        if controller.crear_producto(cod, nom, des, mar, col):
+        print self.pk
+        if controller.editar_producto(self.pk, cod, nom, des, mar, col):
             self.limpiar()
 
     def limpiar(self):
@@ -33,10 +51,3 @@ class Form(QtGui.QDialog):
         self.ui.le_descripcion.setText("")
         self.ui.le_marca.setText("")
         self.ui.le_color.setText("")
-"""
-if __name__ == '__main__':
-    app = QtGui.QApplication(sys.argv)
-    main = Ventana()
-    sys.exit(app.exec_())
-    """
-

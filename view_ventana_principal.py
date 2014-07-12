@@ -5,6 +5,8 @@ from PySide import QtGui, QtCore
 from ventana_principal import Ui_MainWindow
 import controller
 from model import Producto
+import view_vent_ingreso_producto
+import view_edit_producto
 
 class VentanaPrincipal(QtGui.QMainWindow):
     table_columns = (
@@ -49,22 +51,56 @@ class VentanaPrincipal(QtGui.QMainWindow):
                 index = model.index(i, j, QtCore.QModelIndex())
                 model.setData(index, field)
             #Parametros ocultos
-            model.item(i).mov = data
+            model.item(i).prod = data
             model.item(i).pk = data[0]
 
-    def editar():
-        None
+    def editar(self):
+        model = self.ui.table_productos.model()
+        index = self.ui.table_productos.currentIndex()
+        if index.row() == -1:  # No se ha seleccionado una fila
+            self.errorMessageDialog = QtGui.QErrorMessage(self)
+            self.errorMessageDialog.showMessage("Debe seleccionar una fila")
+            return False
+        else:
+            id_producto = model.item(index.row()).pk
+            cod = model.item(index.row()).prod[1]
+            nom = model.item(index.row()).prod[2]
+            des = model.item(index.row()).prod[3]
+            mar = model.item(index.row()).prod[4]
+            col = model.item(index.row()).prod[5]
+            form = view_edit_producto.Form(self, id_producto, cod, nom, des, mar, col)
+            form.rejected.connect(self.load_productos)
+            form.exec_()
+            self.load_productos()
 
 
-    def eliminar():
-        None
 
 
-    def agregar():
-        None
 
 
-    def select():
+    def eliminar(self):
+        model = self.ui.table_productos.model()
+        index = self.ui.table_productos.currentIndex()
+        if index.row() == -1:  # No se ha seleccionado una fila
+            self.errorMessageDialog = QtGui.QErrorMessage(self)
+            self.errorMessageDialog.showMessage("Debe seleccionar una fila")
+            return False
+        else:
+            id_producto = model.item(index.row()).pk
+
+            p = Producto()
+            p.id_producto = id_producto
+            p.delete()
+            self.load_productos()
+
+
+    def agregar(self):
+        form = view_vent_ingreso_producto.Form()
+        form.rejected.connect(self.load_productos)
+        form.exec_()
+
+
+    def select(self):
         None
 
 
