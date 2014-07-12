@@ -11,10 +11,11 @@ import unicodedata
 from model import Producto
 from PySide import QtCore, QtGui
 
+
 class Ui_MainWindow(object):
 
     def __init__(self):
-        super(Ui_MainWindow,self).__init__()
+        super(Ui_MainWindow, self).__init__()
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -60,23 +61,29 @@ class Ui_MainWindow(object):
         self.btn_compras.setObjectName("btn_compras")
         self.horizontalLayout_4.addWidget(self.btn_compras)
         self.horizontalLayout_3.addLayout(self.horizontalLayout_4)
-        spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        spacerItem = QtGui.QSpacerItem(40, 20,
+        QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_3.addItem(spacerItem)
-        spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        spacerItem1 = QtGui.QSpacerItem(40, 20,
+        QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_3.addItem(spacerItem1)
-        spacerItem2 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        spacerItem2 = QtGui.QSpacerItem(40, 20,
+        QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_3.addItem(spacerItem2)
-        spacerItem3 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        spacerItem3 = QtGui.QSpacerItem(40, 20,
+        QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_3.addItem(spacerItem3)
         self.btn_eliminar = QtGui.QPushButton(self.centralwidget)
         self.btn_eliminar.setObjectName("btn_eliminar")
         self.horizontalLayout_3.addWidget(self.btn_eliminar)
-        spacerItem4 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        spacerItem4 = QtGui.QSpacerItem(40, 20,
+        QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_3.addItem(spacerItem4)
         self.btn_editar = QtGui.QPushButton(self.centralwidget)
         self.btn_editar.setObjectName("btn_editar")
         self.horizontalLayout_3.addWidget(self.btn_editar)
-        spacerItem5 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        spacerItem5 = QtGui.QSpacerItem(40, 20,
+        QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_3.addItem(spacerItem5)
         self.btn_agregar = QtGui.QPushButton(self.centralwidget)
         self.btn_agregar.setObjectName("btn_agregar")
@@ -88,34 +95,43 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
         self.tabla_productos.setColumnCount(5)
-        self.tabla_productos.setColumnWidth(0,80)
-        self.tabla_productos.setColumnWidth(1,120)
-        self.tabla_productos.setColumnWidth(2,220)
-        self.tabla_productos.setColumnWidth(3,210)
-        self.tabla_productos.setColumnWidth(4,150)
-        self.tabla_productos.setHorizontalHeaderLabels(['Codigo', 'Nombre', 'Descripcion', 'Marca', 'Color'])
+        self.tabla_productos.setColumnWidth(0, 80)
+        self.tabla_productos.setColumnWidth(1, 120)
+        self.tabla_productos.setColumnWidth(2, 220)
+        self.tabla_productos.setColumnWidth(3, 210)
+        self.tabla_productos.setColumnWidth(4, 150)
+        self.tabla_productos.setHorizontalHeaderLabels(['Codigo',
+        'Nombre', 'Descripcion', 'Marca', 'Color'])
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         self.cargar_tabla(Producto.all())
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "Tabla con productos", None, QtGui.QApplication.UnicodeUTF8))
-        self.btn_buscar.setText(QtGui.QApplication.translate("MainWindow", "               Buscar                 ", None, QtGui.QApplication.UnicodeUTF8))
-        self.btn_nuevacompra.setText(QtGui.QApplication.translate("MainWindow", "Nueva compra", None, QtGui.QApplication.UnicodeUTF8))
-        self.btn_compras.setText(QtGui.QApplication.translate("MainWindow", "Compras", None, QtGui.QApplication.UnicodeUTF8))
-        self.btn_eliminar.setText(QtGui.QApplication.translate("MainWindow", "Eliminar", None, QtGui.QApplication.UnicodeUTF8))
-        self.btn_editar.setText(QtGui.QApplication.translate("MainWindow", "Editar", None, QtGui.QApplication.UnicodeUTF8))
-        self.btn_agregar.setText(QtGui.QApplication.translate("MainWindow", "Agregar", None, QtGui.QApplication.UnicodeUTF8))
+        MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow",
+        "Tabla con productos", None, QtGui.QApplication.UnicodeUTF8))
+        self.btn_buscar.setText(QtGui.QApplication.translate("MainWindow",
+        "               Buscar                 ", None,
+        QtGui.QApplication.UnicodeUTF8))
+        self.btn_nuevacompra.setText(QtGui.QApplication.translate("MainWindow",
+        "Nueva compra", None, QtGui.QApplication.UnicodeUTF8))
+        self.btn_compras.setText(QtGui.QApplication.translate("MainWindow",
+        "Compras", None, QtGui.QApplication.UnicodeUTF8))
+        self.btn_eliminar.setText(QtGui.QApplication.translate("MainWindow",
+        "Eliminar", None, QtGui.QApplication.UnicodeUTF8))
+        self.btn_editar.setText(QtGui.QApplication.translate("MainWindow",
+        "Editar", None, QtGui.QApplication.UnicodeUTF8))
+        self.btn_agregar.setText(QtGui.QApplication.translate("MainWindow",
+        "Agregar", None, QtGui.QApplication.UnicodeUTF8))
 ###############################################################################
 
     def cargar_tabla(self, consulta):
-        txtcellcod =[]
-        txtcellnom =[]
-        txtcelldes =[]
-        txtcellmar =[]
-        txtcellcol =[]
-        c = 0# contador
-        f = 0
+        txtcellcod = []
+        txtcellnom = []
+        txtcelldes = []
+        txtcellmar = []
+        txtcellcol = []
+        c = 0  # segundo contador para colocar daos
+        f = 0  # primer contador para recopilar numero de filas necesarias
         for pro in consulta:
             txtcellcod.append(QtGui.QTableWidgetItem())
             txtcellnom.append(QtGui.QTableWidgetItem())
@@ -130,11 +146,11 @@ class Ui_MainWindow(object):
             f = f + 1
         self.tabla_productos.setRowCount(f)
         for pro in consulta:
-            self.tabla_productos.setItem(c,0,txtcellcod[c])
-            self.tabla_productos.setItem(c,1,txtcellnom[c])
-            self.tabla_productos.setItem(c,2,txtcelldes[c])
-            self.tabla_productos.setItem(c,3,txtcellmar[c])
-            self.tabla_productos.setItem(c,4,txtcellcol[c])
+            self.tabla_productos.setItem(c, 0, txtcellcod[c])
+            self.tabla_productos.setItem(c, 1, txtcellnom[c])
+            self.tabla_productos.setItem(c, 2, txtcelldes[c])
+            self.tabla_productos.setItem(c, 3, txtcellmar[c])
+            self.tabla_productos.setItem(c, 4, txtcellcol[c])
             c = c + 1
 
 
