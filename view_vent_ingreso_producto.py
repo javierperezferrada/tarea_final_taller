@@ -25,7 +25,6 @@ class Ventana(QtGui.QMainWindow):
         mar = self.ui.le_marca.text()
         col = self.ui.le_color.text()
         if controller.crear_producto(cod, nom, des, mar, col):
-
             self.limpiar()
 
     def limpiar(self):

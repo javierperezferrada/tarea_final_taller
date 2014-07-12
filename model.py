@@ -191,11 +191,7 @@ class Producto(object):
             conn = connect()
             result = conn.execute(query)
             data = result.fetchall()
-
-            for row in data:
-                productos.append(
-                    Producto(row[0], row[1], row[2], row[3], row[4], row[5]))
-            return productos
+            return data
 
         except sqlite3.Error as e:
             print "An error occurred:", e.args[0]
@@ -357,11 +353,7 @@ class Compra(object):
             conn = connect()
             result = conn.execute(query)
             data = result.fetchall()
-
-            for row in data:
-                compras.append(
-                    Compra(row[0], row[1], row[2], row[3], row[4]))
-            return compras
+            return data
 
         except sqlite3.Error as e:
             print "An error occurred:", e.args[0]
