@@ -5,6 +5,7 @@ from PySide import QtGui, QtCore
 from ui_dialog_ingreso import Ui_Dialog
 import controller
 
+
 class Form(QtGui.QDialog):
     def __init__(self, parent=None):
         QtGui.QDialog.__init__(self, parent)
@@ -15,7 +16,7 @@ class Form(QtGui.QDialog):
 
     def set_signals(self):
         #en esta funcion se definen todos los tratamientos de señales.
-        self.ui.btn_ingresar.clicked.connect(self.ingresar)
+        self.ui.btn_aceptar.clicked.connect(self.ingresar)
 
     def ingresar(self):
         cod = self.ui.le_codigo.text()
