@@ -101,7 +101,7 @@ class Ui_MainWindow(object):
         self.tabla_productos.setColumnWidth(4, 210)
         self.tabla_productos.setColumnWidth(5, 150)
         self.tabla_productos.setColumnHidden(0, True)
-        self.tabla_productos.setHorizontalHeaderLabels(['Codigo',
+        self.tabla_productos.setHorizontalHeaderLabels(['id', 'Codigo',
         'Nombre', 'Descripcion', 'Marca', 'Color'])
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -132,10 +132,14 @@ class Ui_MainWindow(object):
         index = self.tabla_productos.currentIndex()
         print index.row()
         if (index.row() != -1):
-            self.tabla_productos.removeRow(index.row())
-            print self.tabla_productos.currentIndex()
-            ########################## IMPORTANTE #############################
-            ################# NO ELIMINA DE LA BASE DE DATOS ##################
+            #self.tabla_productos.removeRow(index.row())
+            #print self.tabla_productos.currentIndex()
+            pk = int(self.tabla_productos.item(index.row(),0).text())
+            print pk
+            p = Producto()
+            p.id_producto = pk
+            p.delete()
+            self.cargar_tabla(Producto.all())
         else:
             QtGui.QMessageBox.question(None, 'Error!!',
             'No has seleccionado fila a eliminar')
