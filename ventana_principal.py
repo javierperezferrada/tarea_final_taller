@@ -7,12 +7,19 @@
 #
 # WARNING! All changes made in this file will be lost!
 import sys
+import unicodedata
+from model import Producto
 from PySide import QtCore, QtGui
 
 class Ui_MainWindow(object):
+
+    def __init__(self):
+        super(Ui_MainWindow,self).__init__()
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(577, 518)
+        MainWindow.resize(800, 650)
+
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout_3 = QtGui.QVBoxLayout(self.centralwidget)
@@ -29,9 +36,9 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.addLayout(self.horizontalLayout)
         self.verticalLayout_2 = QtGui.QVBoxLayout()
         self.verticalLayout_2.setObjectName("verticalLayout_2")
-        self.tableView = QtGui.QTableView(self.centralwidget)
-        self.tableView.setObjectName("tableView")
-        self.verticalLayout_2.addWidget(self.tableView)
+        self.tabla_productos = QtGui.QTableWidget(self.centralwidget)
+        self.tabla_productos.setObjectName("tabla de productos")
+        self.verticalLayout_2.addWidget(self.tabla_productos)
         self.horizontalLayout_3 = QtGui.QHBoxLayout()
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.horizontalLayout_4 = QtGui.QHBoxLayout()
@@ -80,9 +87,16 @@ class Ui_MainWindow(object):
         self.statusbar = QtGui.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-
+        self.tabla_productos.setColumnCount(5)
+        self.tabla_productos.setColumnWidth(0,80)
+        self.tabla_productos.setColumnWidth(1,120)
+        self.tabla_productos.setColumnWidth(2,220)
+        self.tabla_productos.setColumnWidth(3,210)
+        self.tabla_productos.setColumnWidth(4,150)
+        self.tabla_productos.setHorizontalHeaderLabels(['Codigo', 'Nombre', 'Descripcion', 'Marca', 'Color'])
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.cargar_tabla(Producto.all())
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "Tabla con productos", None, QtGui.QApplication.UnicodeUTF8))
@@ -92,12 +106,44 @@ class Ui_MainWindow(object):
         self.btn_eliminar.setText(QtGui.QApplication.translate("MainWindow", "Eliminar", None, QtGui.QApplication.UnicodeUTF8))
         self.btn_editar.setText(QtGui.QApplication.translate("MainWindow", "Editar", None, QtGui.QApplication.UnicodeUTF8))
         self.btn_agregar.setText(QtGui.QApplication.translate("MainWindow", "Agregar", None, QtGui.QApplication.UnicodeUTF8))
+###############################################################################
+
+    def cargar_tabla(self, consulta):
+        txtcellcod =[]
+        txtcellnom =[]
+        txtcelldes =[]
+        txtcellmar =[]
+        txtcellcol =[]
+        c = 0# contador
+        f = 0
+        for pro in consulta:
+            txtcellcod.append(QtGui.QTableWidgetItem())
+            txtcellnom.append(QtGui.QTableWidgetItem())
+            txtcelldes.append(QtGui.QTableWidgetItem())
+            txtcellmar.append(QtGui.QTableWidgetItem())
+            txtcellcol.append(QtGui.QTableWidgetItem())
+            txtcellcod[f].setText(pro[1])
+            txtcellnom[f].setText(pro[2])
+            txtcelldes[f].setText(pro[3])
+            txtcellmar[f].setText(pro[4])
+            txtcellcol[f].setText(pro[5])
+            f = f + 1
+        self.tabla_productos.setRowCount(f)
+        for pro in consulta:
+            self.tabla_productos.setItem(c,0,txtcellcod[c])
+            self.tabla_productos.setItem(c,1,txtcellnom[c])
+            self.tabla_productos.setItem(c,2,txtcelldes[c])
+            self.tabla_productos.setItem(c,3,txtcellmar[c])
+            self.tabla_productos.setItem(c,4,txtcellcol[c])
+            c = c + 1
+
 
 class ControlMainWindow(QtGui.QMainWindow):
     def __init__(self, parent=None):
         super(ControlMainWindow, self).__init__(parent)
-        self.ui =  Ui_MainWindow()
+        self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
