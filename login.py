@@ -1,14 +1,6 @@
-#-*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'login.ui'
-#
-# Created: Wed Jun  4 22:17:23 2014
-#      by: pyside-uic 0.2.15 running on PySide 1.2.1
-#
-# WARNING! All changes made in this file will be lost!
 
 import sys
-import controller
+import model_login
 import view_ventana_principal
 
 from PySide import QtCore, QtGui
@@ -70,11 +62,11 @@ class Ui_Dialog(object):
       #guardo password
       password = self.lineEdit_2.text()
       #invoco a mi logines y recibo un boleano
-      #result=controller.logines(usuario,password)
-      result = True
+      result = model_login.logines(usuario,password)
       if result:
         #si mi login es verdadero, ejecuta la ventana
         view_ventana_principal.run()
+        
 
 
 
