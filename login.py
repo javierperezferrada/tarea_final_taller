@@ -9,7 +9,7 @@
 
 import sys
 import controller
-import Ventana
+import view_ventana_principal
 
 from PySide import QtCore, QtGui
 
@@ -71,9 +71,10 @@ class Ui_Dialog(object):
       password = self.lineEdit_2.text()
       #invoco a mi logines y recibo un boleano
       #result=controller.logines(usuario,password)
-      #if result:
+      result = True
+      if result:
         #si mi login es verdadero, ejecuta la ventana
-        #Ventana.run()
+        view_ventana_principal.run()
 
 
 
