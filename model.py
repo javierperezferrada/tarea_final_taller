@@ -77,6 +77,31 @@ class Producto(object):
         elif nombre is not None:
             self.load(nombre=nombre)
 
+    def load_cant_total(self, ID=None):
+        """
+        Carga la cantidad total vendida y el total generado
+        """
+        print "goooooooooooooooooooooooooooooooolaaaa"
+        contador_cantidad = 0
+        contador_total = 0
+        conn = connect()
+        query = "SELECT COUNT(fk_id_producto) FROM compra_has_producto "
+        if ID is not None:
+            query += "WHERE fk_id_producto = "+ str(ID)
+            condition = str(ID)
+        print query
+        print condition
+        result = conn.execute(query)
+        contador_cantidad = result.fetchone()
+        query = "SELECT SUM(total) FROM compra_has_producto "
+        if ID is not None:
+            query += "WHERE fk_id_producto = ?"
+            condition = str(ID)
+        result = conn.execute(query, [condition])
+        contador_total = result.fetchone()
+        conn.close()
+        return (contador_cantidad, contador_total)
+
     def load(self, nombre=None):
         """
         Carga un producto de la base de datos por id_producto o nombre
