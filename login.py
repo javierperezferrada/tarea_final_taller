@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 import sys
 import model_login
@@ -66,7 +68,7 @@ class Ui_Dialog(object):
       if result:
         #si mi login es verdadero, ejecuta la ventana
         view_ventana_principal.run()
-        
+
 
 
 
