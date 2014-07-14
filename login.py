@@ -1,5 +1,9 @@
 #!/usr/bin/python
+<<<<<<< HEAD
 # -*- coding: utf-8 -*-
+=======
+#-*- coding: utf-8 -*-
+>>>>>>> d41a27354d894bee970a7403a1c12545338054e5
 
 import sys
 import model_login
