@@ -81,7 +81,6 @@ class Producto(object):
         """
         Carga la cantidad total vendida y el total generado
         """
-        print "goooooooooooooooooooooooooooooooolaaaa"
         contador_cantidad = 0
         contador_total = 0
         conn = connect()
@@ -89,8 +88,6 @@ class Producto(object):
         if ID is not None:
             query += "WHERE fk_id_producto = "+ str(ID)
             condition = str(ID)
-        print query
-        print condition
         result = conn.execute(query)
         contador_cantidad = result.fetchone()
         query = "SELECT SUM(total) FROM compra_has_producto "
