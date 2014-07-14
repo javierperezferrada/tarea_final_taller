@@ -7,6 +7,8 @@ import controller
 from model import Producto
 import view_vent_ingreso_producto
 import view_edit_producto
+import view_nueva_compra
+import view_compras
 
 
 class VentanaPrincipal(QtGui.QMainWindow):
@@ -30,7 +32,19 @@ class VentanaPrincipal(QtGui.QMainWindow):
         self.ui.btn_editar.clicked.connect(self.editar)
         self.ui.btn_agregar.clicked.connect(self.agregar)
         self.ui.btn_eliminar.clicked.connect(self.eliminar)
-        self.ui.table_productos.clicked.connect(self.select)
+        self.ui.btn_nuevacompra.clicked.connect(self.nueva_compra)
+        self.ui.btn_compras.clicked.connect(self.compras)
+
+    def compras(self):
+        form = view_compras.Form()
+        form.rejected.connect(self.load_productos)
+        form.exec_()
+
+    def nueva_compra(self):
+        form = view_nueva_compra.Form()
+        form.rejected.connect(self.load_productos)
+        form.exec_()
+
 
     def load_productos(self):
         # Método que carga la tabla productos en la Ventana.
@@ -101,8 +115,7 @@ class VentanaPrincipal(QtGui.QMainWindow):
         form.exec_()
 
 
-    def select(self):
-        None
+
 
 
 

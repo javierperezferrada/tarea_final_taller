@@ -195,29 +195,20 @@ class Producto(object):
         except sqlite3.Error as e:
             print "An error occurred:", e.args[0]
             return None
-"""
-    def alumnos(self):
 
-        #Retorna la lista completa de alumnos que están tomando el cursos
-        #Cada item retornado es del tipo clase Alumno
-
-        query = "SELECT * FROM alumnos WHERE id_curso = ?"
+    @classmethod
+    def productos(cls, id_compra=None):
+        query = "SELECT p.* FROM producto p, compra_has_producto c WHERE p.id_producto = c.fk_id_producto and c.fk_id_compra = ?"
         try:
             conn = connect()
-            result = conn.execute(query, [self.id_curso])
-            alumnos = list()
+            result = conn.execute(query, [id_compra])
             data = result.fetchall()
-            for row in data:
-                alumnos.append(
-                    Alumno(row[0], row[1], row[2], row[3], row[4]))
-            return alumnos
+            return data
         except sqlite3.Error as e:
             print "An error occurred:", e.args[0]
             return None
 
-    def inscritos(self):
-        return len(self.alumnos())
-"""
+
 
 class Compra(object):
     """
@@ -241,8 +232,8 @@ class Compra(object):
             id_compra=None,
             fecha="",
             proveedor="",
-            numero_factura=0,
-            descripcion=None):
+            numero_factura= 0,
+            descripcion=""):
 
         self.fecha = fecha
         self.proveedor = proveedor
@@ -279,7 +270,7 @@ class Compra(object):
         if self.id_compra is None:
             self.id_compra = self.__insert()
         else:
-            self.update()
+            self.__update()
 
     def __insert(self):
         query = "INSERT INTO compra "
@@ -357,50 +348,133 @@ class Compra(object):
         except sqlite3.Error as e:
             print "An error occurred:", e.args[0]
             return None
-"""
-    def curso(self):
 
-        Retorna el curso al que está asociado un alumno
-
-        query = "SELECT * FROM cursos WHERE id_curso = ?"
+    def last_id(self):
+        #funcion que retorna el ultimo id_compra ingresado
+        query = "SELECT MAX(id_compra) FROM compra"
         try:
             conn = connect()
-            result = conn.execute(query, [self.id_curso])
-            row = result.fetchone()
-            return Curso(row[0], row[1], row[2], row[3], row[4], row[5])
+            result = conn.execute(query)
+            return result.fetchone()
+        except sqlite3.Error as e:
+            print "An error occurred:", e.args[0]
+            return -1
 
+
+
+class Compra_has_Producto(object):
+    """
+    Clase que representa a la tabla compra_has_producto
+    Una instancia de esta clase representa a una fila.
+    La instancia (objeto) puede estar en BD o no.
+    El método save de la clase inserta o actualiza el registro según
+    Corresponda
+    Los atributos de la clase deben tener correspondencia con la BD
+    (Nombres y tipos de datos)
+    """
+    __tablename__ = "compra_has_producto"
+    fk_id_compra = 0
+    fk_id_producto = 0
+    cantidad = 0
+    precio_unitario = 0
+    total = 0
+
+
+    def __init__(
+            self,
+            fk_id_compra=0,
+            fk_id_producto=0,
+            cantidad=0,
+            precio_unitario=0,
+            total=0):
+        self.fk_id_compra = fk_id_compra
+        self.fk_id_producto = fk_id_producto
+        self.cantidad = cantidad
+        self.precio_unitario = precio_unitario
+        self.total = total
+
+
+
+    def save(self):
+        """
+        Guarda el objeto en la base de datos.
+        Utiliza un insert o update según Corresponda
+        """
+        self.__insert()
+
+
+    def __insert(self):
+        query = "INSERT INTO compra_has_producto "
+        # La pk está definida como auto increment en el modelo
+        query += "(fk_id_compra, fk_id_producto, cantidad, precio_unitario, total) "
+        query += "VALUES (?, ?, ?, ?, ?)"
+        try:
+            conn = connect()
+            result = conn.execute(
+                query, [
+                    self.fk_id_compra,
+                    self.fk_id_producto,
+                    self.cantidad,
+                    self.precio_unitario,
+                    self.total])
+            conn.commit()
+            conn.close()
         except sqlite3.Error as e:
             print "An error occurred:", e.args[0]
             return None
 
+    def __update(self):
+        query = "UPDATE compra "
+        query += "SET fecha = ?, "
+        query += "proveedor = ?, "
+        query += "numero_factura = ?, "
+        query += "descripcion = ? "
+        query += "WHERE id_compra = ?"
+        try:
+            conn = connect()
+            conn.execute(
+                query, [
+                    self.fecha,
+                    self.proveedor,
+                    self.numero_factura,
+                    self.descripcion,
+                    self.id_compra])
+            conn.commit()
+            conn.close()
+            return True
+        except sqlite3.Error as e:
+            print "An error occurred:", e.args[0]
+            return False
 
-if __name__ == "__main__":
+    def delete(self):
+        query = "DELETE FROM compra "
+        query += "WHERE id_compra = ?"
+        try:
+            conn = connect()
+            conn.execute(query, [self.id_compra])
+            conn.commit()
+            conn.close()
+            return True
+        except sqlite3.Error as e:
+            print "An error occurred:", e.args[0]
+            return False
 
-    Ejemplos de utilización del modelo
+    @classmethod
+    def all(cls):
+        """
+        Método utlizado para obtener la colección completa de filas
+        en la tabla compra.
+        Este método al ser de clase no necesita una instancia (objeto)
+        Sólo basta con invocarlo desde la clase.
+        """
+        query = "SELECT * FROM compra"
+        compras = list()
+        try:
+            conn = connect()
+            result = conn.execute(query)
+            data = result.fetchall()
+            return data
 
-    # Obtener toda la lista de cursos
-    Curso.all()
-    # Obtener toda la lista alumnos
-    Alumno.all()
-    # Crear un nuevo curso
-    a = Curso()
-    a.nombre_curso = u"Nuevo curso"
-    a.codigo = u"INFO010"
-    a.semestre = 1
-    a.profesor_titular = u"El profe"
-    a.area = u"Ciencias de la computación"
-    a.save()
-
-    # Actualizar un curso por codigo
-    b = Curso(codigo=u"INFO010")
-    # En este momento el objeto a y b representan la misma fila en la BD
-    # lo que no es correcto por que puede provocar inconsistencia!!!
-    b.nombre_curso = u"Nuevo curso editado"
-    b.save()
-    # borra un curso
-    b.delete()
-
-    # Traer todos los alumnos de un curso
-    c = Curso(1)
-    c.alumnos()
-"""
+        except sqlite3.Error as e:
+            print "An error occurred:", e.args[0]
+            return None

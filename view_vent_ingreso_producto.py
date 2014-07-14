@@ -17,6 +17,10 @@ class Form(QtGui.QDialog):
     def set_signals(self):
         #en esta funcion se definen todos los tratamientos de señales.
         self.ui.btn_aceptar.clicked.connect(self.ingresar)
+        self.ui.btn_cancelar.clicked.connect(self.cancelar)
+
+    def cancelar(self):
+        self.reject()
 
     def ingresar(self):
         cod = self.ui.le_codigo.text()
@@ -25,7 +29,7 @@ class Form(QtGui.QDialog):
         mar = self.ui.le_marca.text()
         col = self.ui.le_color.text()
         if controller.crear_producto(cod, nom, des, mar, col):
-            self.limpiar()
+            self.reject()
 
     def limpiar(self):
         self.ui.le_codigo.setText("")
