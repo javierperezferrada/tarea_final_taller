@@ -17,7 +17,9 @@ class VentanaPrincipal(QtGui.QMainWindow):
         (u"Nombre", 100),
         (u"Descripción", 200),
         (u"Marca", 100),
-        (u"Color", 75))
+        (u"Color", 75),
+        (u"Cant. prod. vendidos", 150),
+        (u"Total prod. vendidos", 150))
 
     def __init__(self, parent=None):
         QtGui.QMainWindow.__init__(self, parent)
@@ -61,14 +63,21 @@ class VentanaPrincipal(QtGui.QMainWindow):
             self.ui.table_productos.setColumnWidth(col, h[1])
 
         for i, data in enumerate(productos):
-            row = [data[1], data[2], data[3], data[4], data[5]]
+            data7 = None
+            for xca in Producto().load_cant_total(data[0])[0]:
+                data6 = xca
+            for xto in Producto().load_cant_total(data[0])[1]:
+                data7 = xto
+                if (data7 == None):
+                    data7 = 0
+            row = [data[1], data[2], data[3], data[4], data[5], data6, data7]
             for j, field in enumerate(row):
                 index = model.index(i, j, QtCore.QModelIndex())
                 model.setData(index, field)
             #Parametros ocultos
             model.item(i).prod = data
             model.item(i).pk = data[0]
-
+        
     def editar(self):
         model = self.ui.table_productos.model()
         index = self.ui.table_productos.currentIndex()
