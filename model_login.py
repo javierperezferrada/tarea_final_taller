@@ -1,6 +1,8 @@
 #!/usr/bin/python
 #-*- coding: utf-8 -*-
 
+import sys #importacion necesaria para acceder a la librerias de Qt
+from PySide import QtGui, QtCore
 import sqlite3
 
 def conectar():
@@ -33,7 +35,10 @@ def logines(usuario,contrasenia):
         except sqlite3.Error as e:
             print "Error:", e.args[0]
     else:
-        print 'No existe usuario'
+        # Error al ingresar usuario
+        msgBox = QtGui.QMessageBox()
+        msgBox.setText("No existe usuario")
+        msgBox.exec_()
         result = False
     con.close()
     return result
@@ -53,7 +58,10 @@ def verifica(identi,contrasenia):
     contra = contras[0][0]
     if contra == contrasenia:
         res = True
-    else: 
-        print 'Contraseña erronea!!!'
+    else:
+        #Error al ingresar contrasenia 
+        msgBox = QtGui.QMessageBox()
+        msgBox.setText("Contrasenia Erronea")
+        msgBox.exec_()
         res = False
     return res
