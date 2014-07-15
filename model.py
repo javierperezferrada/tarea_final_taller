@@ -76,7 +76,20 @@ class Producto(object):
             self.load()
         elif nombre is not None:
             self.load(nombre=nombre)
+            
+    def buscador_pro(self, entry):
+        query = 'SELECT * FROM producto WHERE codigo = "' + entry + '"'
+        query += ' or nombre = "' + entry + '"'
+        try:
+            conn = connect()
+            result = conn.execute(query)
+            data = result.fetchall()
+            return data
 
+        except sqlite3.Error as e:
+            print "An error occurred:", e.args[0]
+            return None
+            
     def load_cant_total(self, ID=None):
         """
         Carga la cantidad total vendida y el total generado
